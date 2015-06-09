@@ -155,7 +155,7 @@
 #pragma mark - UIPopoverControllerDelegate methods
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
-
+  [self jsDateSelected];
 }
 
 #pragma mark - Factory methods
@@ -170,7 +170,6 @@
   // in iOS8, UIDatePicker couldn't be shared in multi UIViews, it will cause crash. so   create new UIDatePicker instance every time
   if (! self.datePicker || [[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0){
       self.datePicker = [self createDatePicker:options frame:frame];
-      [self.datePicker addTarget:self action:@selector(dateChangedAction:) forControlEvents:UIControlEventValueChanged];
   }
   [self updateDatePicker:options];
   [datePickerView addSubview:self.datePicker];
@@ -194,6 +193,7 @@
   UIDatePicker *datePicker = [[UIDatePicker alloc] initWithFrame:frame];
   return datePicker;
 }
+
 
 #define DATETIME_FORMAT @"yyyy-MM-dd'T'HH:mm:ss'Z'"
 
